@@ -44,30 +44,30 @@ jobs:
     needs: test
     runs-on: self-hosted
 
-    steps:
-      - name: Получение исходного кода
-        uses: actions/checkout@v4
-
-      - name: Сборка Docker-образа
-        run: sudo docker build -t student-info-app:latest .
-
-      - name: Остановка старого контейнера
-        run: sudo docker stop student-info-app || true
-
-      - name: Удаление старого контейнера
-        run: sudo docker rm student-info-app || true
-
-      - name: Запуск нового контейнера
-        run: sudo docker run -d --name student-info-app -p 5000:5000 student-info-app:latest
-
-       - name: Проверка приложения
-         run: |
-           sleep 5
-           curl -f http://localhost:5000/health
-
-
-      - name: Загрузка артефакта
-        uses: actions/upload-artifact@v4
-        with:
-          name: student-info-app
-          path: dist/student-info-app.zip
+      steps:
+        - name: Получение исходного кода
+          uses: actions/checkout@v4
+  
+        - name: Сборка Docker-образа
+          run: sudo docker build -t student-info-app:latest .
+  
+        - name: Остановка старого контейнера
+          run: sudo docker stop student-info-app || true
+  
+        - name: Удаление старого контейнера
+          run: sudo docker rm student-info-app || true
+  
+        - name: Запуск нового контейнера
+          run: sudo docker run -d --name student-info-app -p 5000:5000 student-info-app:latest
+  
+         - name: Проверка приложения
+           run: |
+             sleep 5
+             curl -f http://localhost:5000/health
+  
+  
+        - name: Загрузка артефакта
+          uses: actions/upload-artifact@v4
+          with:
+            name: student-info-app
+            path: dist/student-info-app.zip
