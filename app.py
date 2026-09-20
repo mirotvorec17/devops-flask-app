@@ -14,7 +14,8 @@ def courses():
         "courses": [
             "DevOps Engineering",
             "Information Security",
-            "Database Systems"
+            "Database Systems",
+            "Web Programming"
         ]
     })
 
