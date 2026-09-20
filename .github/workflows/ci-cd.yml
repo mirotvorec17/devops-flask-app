@@ -1,0 +1,47 @@
+name: CI/CD Flask Application
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Тестирование и проверка кода
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Получение исходного кода
+        uses: actions/checkout@v4
+
+      - name: Настройка Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Установка зависимостей
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install flake8
+
+      - name: Проверка качества кода
+        run: flake8 app.py test_app.py
+
+      - name: Запуск тестов
+        run: pytest -q
+
+      - name: Создание артефакта
+        run: |
+          mkdir -p dist
+          python -m zipfile -c dist/student-info-app.zip \
+            app.py test_app.py requirements.txt Dockerfile
+
+      - name: Загрузка артефакта
+        uses: actions/upload-artifact@v4
+        with:
+          name: student-info-app
+          path: dist/student-info-app.zip
