@@ -14,7 +14,7 @@ def test_courses():
     assert response.status_code == 200
     data = response.get_json()
     assert "courses" in data
-    assert len(data["courses"]) == 3
+    assert len(data["courses"]) == 4
 
 
 def test_health():
