@@ -60,8 +60,11 @@ jobs:
       - name: Запуск нового контейнера
         run: sudo docker run -d --name student-info-app -p 5000:5000 student-info-app:latest
 
-      - name: Проверка приложения
-        run: curl -f http://localhost:5000/health
+       - name: Проверка приложения
+         run: |
+           sleep 5
+           curl -f http://localhost:5000/health
+
 
       - name: Загрузка артефакта
         uses: actions/upload-artifact@v4
