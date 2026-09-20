@@ -44,7 +44,7 @@ jobs:
     needs: test
     runs-on: self-hosted
 
-      steps:
+    steps:
         - name: Получение исходного кода
           uses: actions/checkout@v4
   
